@@ -4,7 +4,7 @@ import MyRecipe from "./MyRecipe";
 import { Layout } from "antd";
 import { nanoid } from "nanoid";
 
-export type recipeProps = {
+export type Recipe = {
   title: string;
   ingredients: string;
   instruction: string;
@@ -13,7 +13,7 @@ export type recipeProps = {
 };
 
 function App() {
-  const [recipes, setRecipe] = useState<recipeProps[]>([
+  const [recipes, setRecipe] = useState<Recipe[]>([
     {
       title: "Oseng Otok Tempe",
       id: nanoid(),
@@ -48,7 +48,7 @@ function App() {
 
   const { Header, Content, Footer } = Layout;
 
-  const handleAddRecipe = (newRecipe: recipeProps) => {
+  const handleAddRecipe = (newRecipe: Recipe) => {
     setRecipe([...recipes, newRecipe]);
   };
 
@@ -60,7 +60,7 @@ function App() {
     );
   };
 
-  const handleFinishEditRecipe = (editedRecipe: recipeProps) => {
+  const handleFinishEditRecipe = (editedRecipe: Recipe) => {
     setRecipe(
       recipes.map((recipe) => {
         return recipe.id === editedRecipe.id ? editedRecipe : recipe;

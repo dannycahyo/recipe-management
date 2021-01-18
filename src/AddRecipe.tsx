@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { recipeProps } from "./App";
+import { Recipe } from "./App";
 import { Button, Modal, Form, Input as AntdInput, Input } from "antd";
 import { FormLayout } from "antd/lib/form/Form";
 import { StarOutlined } from "@ant-design/icons";
 import { nanoid } from "nanoid";
 
 type AddRecipeProps = {
-  onSubmit: (value: recipeProps) => void;
+  onSubmit: (value: Recipe) => void;
 };
 
 function AddRecipe({ onSubmit }: AddRecipeProps) {
-  const { TextArea } = Input;
-
   const [
     isAddRecipeModalVisible,
     setIsAddRecipeModalVisible,
@@ -82,6 +80,8 @@ function AddRecipe({ onSubmit }: AddRecipeProps) {
           wrapperCol: { span: 14, offset: 4 },
         }
       : null;
+
+  const { TextArea } = Input;
 
   return (
     <div

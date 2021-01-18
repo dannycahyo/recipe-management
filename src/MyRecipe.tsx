@@ -9,13 +9,12 @@ import {
   Input,
   Input as AntdInput,
 } from "antd";
-import { recipeProps } from "./App";
-import { FormLayout } from "antd/lib/form/Form";
+import { Recipe } from "./App";
 
 type MyRecipeProps = {
-  recipes: recipeProps[];
+  recipes: Recipe[];
   onDelete: (id: string) => void;
-  onFinishEdit: (value: recipeProps) => void;
+  onFinishEdit: (value: Recipe) => void;
 };
 
 function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
@@ -34,11 +33,10 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
   const [instructionValue, setInstructionValue] = useState<string>("");
   const [imageValue, setImageValue] = useState<string>("");
 
-  const [formLayout, setFormLayout] = useState<FormLayout>("horizontal");
+  const [searchValue, setSearchValue] = useState<string>("");
 
-  const [selectedRecipe, setSelectedRecipe] = useState<recipeProps | null>(
-    null
-  );
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+
   // const [selectedId, setSelectedId] = useState<string|null>(null)
   // const selectedRecipe2 = recipes.find((recipe) => {
   //   return recipe.id === selectedId
@@ -56,7 +54,7 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
     setSelectedRecipe(null);
   };
 
-  const handleOpenRecipeModal = (recipe: recipeProps) => {
+  const handleOpenRecipeModal = (recipe: Recipe) => {
     setIsOpenRecipeModalVisible(true);
     setSelectedRecipe(recipe);
   };
@@ -67,16 +65,14 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
     setSelectedRecipe(null);
   };
 
-  const handleFormRecipeModal = (
-    layout: FormLayout = "horizontal",
-    selectedRecipe: recipeProps
-  ) => {
-    setFormLayout(layout);
+  const handleFormRecipeModal = () => {
     setIsFormRecipeModalVisible(true);
-    setImageValue(selectedRecipe?.image);
-    setRecipeValue(selectedRecipe?.title);
-    setIngredientsValue(selectedRecipe?.ingredients);
-    setInstructionValue(selectedRecipe?.instruction);
+    if (selectedRecipe) {
+      setImageValue(selectedRecipe.image);
+      setRecipeValue(selectedRecipe.title);
+      setIngredientsValue(selectedRecipe.ingredients);
+      setInstructionValue(selectedRecipe.instruction);
+    }
   };
 
   const handleFormRecipeModalOk = () => {
@@ -124,49 +120,66 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
     setIsFormRecipeModalVisible(false);
   };
 
-  const [form] = Form.useForm();
+  const handleSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
 
-  const formItemLayout =
-    formLayout === "horizontal"
-      ? {
-          labelCol: { span: 4 },
-          wrapperCol: { span: 14 },
-        }
-      : null;
+  const filteredRecipes = recipes.filter((recipe) => {
+    return recipe.title
+      .toLocaleLowerCase()
+      .includes(searchValue.toLocaleLowerCase());
+  });
 
-  const buttonItemLayout =
-    formLayout === "horizontal"
-      ? {
-          wrapperCol: { span: 14, offset: 4 },
-        }
-      : null;
+  const formItemLayout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 14 },
+  };
+
+  const buttonItemLayout = {
+    wrapperCol: { span: 14, offset: 4 },
+  };
 
   return (
     <div>
-      <List
-        grid={{ gutter: 16, column: 3 }}
-        dataSource={recipes}
-        renderItem={(recipe) => (
-          <List.Item>
-            <Card
-              style={{
-                width: "60%",
-                textAlign: "center",
-                justifyContent: "space-between",
-              }}
-              cover={<img height="250" alt="recipe" src={recipe.image} />}
-            >
-              {recipe.title}
-            </Card>
-            <Button
-              type="primary"
-              onClick={() => handleOpenRecipeModal(recipe)}
-            >
-              OPEN RECIPE
-            </Button>
-          </List.Item>
-        )}
-      />
+      <div style={{ display: "flex" }}>
+        <h1>MyRecipe</h1>
+        <Input
+          style={{ width: "50%", alignItems: "center" }}
+          placeholder="Are You Looking For Recipe ?"
+          allowClear
+          size="large"
+          value={searchValue}
+          onChange={handleSearchValue}
+        />
+      </div>
+      {filteredRecipes.length === 0 ? (
+        <h1>Cannot Find Book</h1>
+      ) : (
+        <List
+          grid={{ gutter: 16, column: 3 }}
+          dataSource={filteredRecipes}
+          renderItem={(recipe) => (
+            <List.Item>
+              <Card
+                style={{
+                  width: "60%",
+                  textAlign: "center",
+                  justifyContent: "space-between",
+                }}
+                cover={<img height="250" alt="recipe" src={recipe.image} />}
+              >
+                {recipe.title}
+              </Card>
+              <Button
+                type="primary"
+                onClick={() => handleOpenRecipeModal(recipe)}
+              >
+                OPEN RECIPE
+              </Button>
+            </List.Item>
+          )}
+        />
+      )}
 
       <Modal
         title="Open Recipe"
@@ -192,10 +205,7 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
             >
               Delete
             </Button>
-            <Button
-              type="primary"
-              onClick={() => handleFormRecipeModal(formLayout, selectedRecipe)}
-            >
+            <Button type="primary" onClick={handleFormRecipeModal}>
               Edit
             </Button>
           </>
@@ -207,12 +217,7 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
         onCancel={handleFormRecipeModalCancel}
         onOk={handleFormRecipeModalOk}
       >
-        <Form
-          {...formItemLayout}
-          layout={formLayout}
-          form={form}
-          initialValues={{ layout: formLayout }}
-        >
+        <Form {...formItemLayout} layout={"horizontal"}>
           <Form.Item label="Image">
             <AntdInput value={imageValue} onChange={handleImageValueChange} />
           </Form.Item>
