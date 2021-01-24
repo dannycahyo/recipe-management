@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Recipe } from "./App";
-import { Button, Modal, Form, Input as AntdInput, Input } from "antd";
+import { Button, Modal, Form, Input as AntdInput, Typography } from "antd";
 import { FormLayout } from "antd/lib/form/Form";
 import { StarOutlined } from "@ant-design/icons";
 import { nanoid } from "nanoid";
@@ -64,8 +64,6 @@ function AddRecipe({ onSubmit }: AddRecipeProps) {
     setIsAddRecipeModalVisible(false);
   };
 
-  const [form] = Form.useForm();
-
   const formItemLayout =
     formLayout === "horizontal"
       ? {
@@ -81,40 +79,34 @@ function AddRecipe({ onSubmit }: AddRecipeProps) {
         }
       : null;
 
-  const { TextArea } = Input;
+  const { TextArea } = AntdInput;
+
+  const { Title } = Typography;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        backgroundColor: "whitesmoke",
-      }}
-    >
-      <h1>
-        {" "}
-        <StarOutlined />
-        Recipe GG
-      </h1>
-      <Button
-        style={{ marginTop: 10, marginBottom: 10 }}
-        type="primary"
-        onClick={() => handleAddRecipeModal(formLayout)}
-      >
-        Add Recipe
-      </Button>
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Title level={2}>
+          {" "}
+          <StarOutlined />
+          Recipe GG
+        </Title>
+        <Button
+          style={{ marginTop: 10, marginBottom: 10 }}
+          size="large"
+          type="primary"
+          onClick={() => handleAddRecipeModal(formLayout)}
+        >
+          Add Recipe
+        </Button>
+      </div>
       <Modal
         title="New Recipe"
         visible={isAddRecipeModalVisible}
         onCancel={handleAddRecipeModalCancel}
         onOk={handleAddRecipeModalOK}
       >
-        <Form
-          {...formItemLayout}
-          layout={formLayout}
-          form={form}
-          initialValues={{ layout: formLayout }}
-        >
+        <Form {...formItemLayout} layout={formLayout}>
           <Form.Item label="Recipe">
             <AntdInput
               placeholder="Type The Recipe Name"

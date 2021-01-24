@@ -44,6 +44,16 @@ function App() {
       image:
         "https://cdn-brilio-net.akamaized.net/news/2020/12/01/196481/1363125-resep-masakan-praktis-ala-rumahan.jpg",
     },
+    {
+      title: "Cah Tauge & Tahu",
+      id: nanoid(),
+      ingredients:
+        "- 1/4 Tauge (cuci bersih) - 3 buah tahu putih (potong dadu) - 5 buah bakso sapi (belah dua) - 5 buah cabai rawit merah - 2 buah cabai merah kerit - 3 buah bawang merah - 2 siung bawang putih ",
+      instruction:
+        "1. Goreng tahu dan bakso (jangan terlalu kering). Tiriskan 2. Tumis bumbu yang sudah dirajang sampai harum 3. Tambahkan saori, garam, gula dan kaldu bubuk 4. Masukkan tauge tahu dan bakso, aduk sebentar sampai rata. Koreksi rasa (jangan ditambah air) 5. Angkat dan sajikan.",
+      image:
+        "https://cdn-brilio-net.akamaized.net/news/2020/12/01/196481/1363126-resep-masakan-praktis-ala-rumahan.jpg",
+    },
   ]);
 
   const { Header, Content, Footer } = Layout;
@@ -71,7 +81,14 @@ function App() {
   return (
     <div>
       <Layout>
-        <Header>
+        <Header
+          style={{
+            position: "fixed",
+            zIndex: 1,
+            width: "100%",
+            backgroundColor: "whitesmoke",
+          }}
+        >
           <AddRecipe onSubmit={handleAddRecipe} />
         </Header>
         <Content>

@@ -6,7 +6,6 @@ import {
   Card,
   Typography,
   Form,
-  Input,
   Input as AntdInput,
 } from "antd";
 import { Recipe } from "./App";
@@ -42,8 +41,6 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
   //   return recipe.id === selectedId
   // })
   // If You Want To Use Other Method
-  const { TextArea } = Input;
-
   const handleOpenRecipeModalOk = () => {
     setIsOpenRecipeModalVisible(false);
     setSelectedRecipe(null);
@@ -130,6 +127,10 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
       .includes(searchValue.toLocaleLowerCase());
   });
 
+  const { TextArea } = AntdInput;
+
+  const { Title } = Typography;
+
   const formItemLayout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 14 },
@@ -141,10 +142,20 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
 
   return (
     <div>
-      <div style={{ display: "flex" }}>
-        <h1>MyRecipe</h1>
-        <Input
-          style={{ width: "50%", alignItems: "center" }}
+      <div
+        style={{
+          display: "flex",
+          marginTop: 20,
+          marginBottom: 20,
+          marginLeft: 250,
+          alignItems: "center",
+        }}
+      >
+        <Title style={{ marginRight: 20 }} level={3}>
+          My Recipe
+        </Title>
+        <AntdInput
+          style={{ width: "50%" }}
           placeholder="Are You Looking For Recipe ?"
           allowClear
           size="large"
@@ -152,35 +163,43 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
           onChange={handleSearchValue}
         />
       </div>
-      {filteredRecipes.length === 0 ? (
-        <h1>Cannot Find Book</h1>
-      ) : (
-        <List
-          grid={{ gutter: 16, column: 3 }}
-          dataSource={filteredRecipes}
-          renderItem={(recipe) => (
-            <List.Item>
-              <Card
-                style={{
-                  width: "60%",
-                  textAlign: "center",
-                  justifyContent: "space-between",
-                }}
-                cover={<img height="250" alt="recipe" src={recipe.image} />}
-              >
-                {recipe.title}
-              </Card>
-              <Button
-                type="primary"
-                onClick={() => handleOpenRecipeModal(recipe)}
-              >
-                OPEN RECIPE
-              </Button>
-            </List.Item>
-          )}
-        />
-      )}
-
+      <div style={{ marginLeft: 60 }}>
+        {filteredRecipes.length === 0 ? (
+          <h1>Cannot Find Recipe</h1>
+        ) : (
+          <List
+            grid={{ gutter: 16, column: 4 }}
+            dataSource={filteredRecipes}
+            renderItem={(recipe) => (
+              <List.Item>
+                <Card
+                  style={{
+                    width: 250,
+                    textAlign: "center",
+                    justifyContent: "space-between",
+                  }}
+                  cover={
+                    <img
+                      style={{ width: 250, height: 200 }}
+                      alt="recipe"
+                      src={recipe.image}
+                    />
+                  }
+                >
+                  {recipe.title}
+                </Card>
+                <Button
+                  style={{ width: 250 }}
+                  type="primary"
+                  onClick={() => handleOpenRecipeModal(recipe)}
+                >
+                  OPEN RECIPE
+                </Button>
+              </List.Item>
+            )}
+          />
+        )}
+      </div>
       <Modal
         title="Open Recipe"
         visible={isOpenRecipeModalVisible}
@@ -190,7 +209,9 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
         {selectedRecipe && (
           <>
             <img width={272} alt="logo" src={selectedRecipe.image} />
-            <Typography.Title>{selectedRecipe.title}</Typography.Title>
+            <Typography.Title level={2}>
+              {selectedRecipe.title}
+            </Typography.Title>
             <Typography.Paragraph>
               {selectedRecipe.ingredients}
             </Typography.Paragraph>
