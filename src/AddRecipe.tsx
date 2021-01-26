@@ -107,31 +107,35 @@ function AddRecipe({ onSubmit }: AddRecipeProps) {
         onOk={handleAddRecipeModalOK}
       >
         <Form {...formItemLayout} layout={formLayout}>
-          <Form.Item label="Recipe">
+          <Form.Item label="Recipe" htmlFor="recipe">
             <AntdInput
+              id="recipe"
               placeholder="Type The Recipe Name"
               value={recipeValue}
               onChange={handleRecipeValueChange}
             />
           </Form.Item>
-          <Form.Item label="Ingredients">
+          <Form.Item label="Ingredients" htmlFor="ingredients">
             <TextArea
+              id="ingredients"
               rows={4}
               placeholder="What The Ingredients Of The Recipe ?"
               value={ingredientsValue}
               onChange={handleIngredientsValueChange}
             />
           </Form.Item>
-          <Form.Item label="Instruction">
+          <Form.Item label="Instruction" htmlFor="instruction">
             <TextArea
+              id="instruction"
               rows={4}
               placeholder="How About The Step By Step ?"
               value={instructionValue}
               onChange={handleInstructionValueChange}
             />
           </Form.Item>
-          <Form.Item label="Image URL">
+          <Form.Item label="Image URL" htmlFor="image url">
             <AntdInput
+              id="image url"
               placeholder="Type The URL Of The Image Please"
               value={imageValue}
               onChange={handleImageValueChange}
@@ -139,7 +143,7 @@ function AddRecipe({ onSubmit }: AddRecipeProps) {
           </Form.Item>
           <Form.Item {...buttonItemLayout}>
             <Button type="primary" onClick={handleSubmitForm}>
-              AddRecipe
+              Add Recipe
             </Button>
           </Form.Item>
         </Form>
