@@ -13,7 +13,7 @@ global.matchMedia =
     };
   };
 
-it("Should add recipe and enter my recipes", () => {
+it("Should add recipe and enter my recipes", async () => {
   render(<App />);
 
   userEvent.click(screen.getByRole("button", { name: "Add Recipe" }));
@@ -37,29 +37,55 @@ it("Should add recipe and enter my recipes", () => {
 
   userEvent.click(screen.getAllByRole("button", { name: "Add Recipe" })[1]);
 
-  userEvent.click(screen.getByRole("button", { name: "Cancel", hidden: true }));
-  userEvent.click(screen.getByRole("button", { name: "OK", hidden: true }));
+  userEvent.click(screen.getByRole("button", { name: "Add Recipe" }));
+  userEvent.click(screen.getByRole("button", { name: "OK" }));
 
-  userEvent.click(screen.getAllByRole("button", { name: "OPEN RECIPE" })[3]);
+  userEvent.click(screen.getByRole("button", { name: "Add Recipe" }));
+  userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+  userEvent.click(screen.getAllByRole("button", { name: "OPEN RECIPE" })[0]);
 
   userEvent.click(screen.getByRole("button", { name: "Delete" }));
-  userEvent.click(screen.getByRole("button", { name: "Edit", hidden: true }));
 
+  userEvent.click(screen.getAllByRole("button", { name: "OPEN RECIPE" })[0]);
+
+  userEvent.click(screen.getByRole("button", { name: "Edit" }));
+
+  userEvent.type(
+    screen.getByRole("textbox", { name: "Image" }),
+    "https://cdn-brilio-net.akamaized.net/news/2020/12/01/196481/1363126-resep-masakan-praktis-ala-rumahan.jpg"
+  );
+  userEvent.type(
+    screen.getByRole("textbox", { name: "Recipe" }),
+    "Cah Tauge & Tahu"
+  );
+  userEvent.type(
+    screen.getByRole("textbox", { name: "Ingredients" }),
+    "Cabbih Buccok"
+  );
+  userEvent.type(
+    screen.getByRole("textbox", { name: "Instruction" }),
+    "Bismillah testingnya bisa"
+  );
   userEvent.click(screen.getByRole("button", { name: "Finish" }));
 
-  userEvent.click(
-    screen.getAllByRole("button", { name: "Cancel", hidden: true })[2]
-  );
-  userEvent.click(
-    screen.getAllByRole("button", { name: "OK", hidden: true })[2]
-  );
+  userEvent.click(screen.getByRole("button", { name: "Edit" }));
+  userEvent.click(screen.getAllByRole("button", { name: "Cancel" })[0]);
 
-  userEvent.click(
-    screen.getAllByRole("button", { name: "Cancel", hidden: true })[2]
-  );
-  userEvent.click(
-    screen.getAllByRole("button", { name: "OK", hidden: true })[2]
-  );
+  userEvent.click(screen.getAllByRole("button", { name: "OPEN RECIPE" })[0]);
+  userEvent.click(screen.getAllByRole("button", { name: "Edit" })[0]);
+  userEvent.click(screen.getAllByRole("button", { name: "OK" })[0]);
+
+  userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+  userEvent.click(screen.getAllByRole("button", { name: "OPEN RECIPE" })[0]);
+  userEvent.click(screen.getByRole("button", { name: "OK" }));
+
+  const input = screen.getByPlaceholderText("Are You Looking For Recipe ?");
+  const value = "takoyaki";
+
+  await userEvent.type(input, value);
+  expect(input).toHaveValue(value);
 
   screen.debug(undefined, kMaxLength);
 });

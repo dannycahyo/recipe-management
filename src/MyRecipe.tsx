@@ -144,11 +144,10 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
     <div>
       <div
         style={{
-          display: "flex",
-          marginTop: 20,
+          marginTop: 70,
           marginBottom: 20,
-          marginLeft: 250,
-          alignItems: "center",
+          marginLeft: 60,
+          display: "flex",
         }}
       >
         <Title style={{ marginRight: 20 }} level={3}>
@@ -239,20 +238,33 @@ function MyRecipe({ recipes, onDelete, onFinishEdit }: MyRecipeProps) {
         onOk={handleFormRecipeModalOk}
       >
         <Form {...formItemLayout} layout={"horizontal"}>
-          <Form.Item label="Image">
-            <AntdInput value={imageValue} onChange={handleImageValueChange} />
+          <Form.Item label="Image" htmlFor="image">
+            <AntdInput
+              id="image"
+              value={imageValue}
+              onChange={handleImageValueChange}
+            />
           </Form.Item>
-          <Form.Item label="Recipe">
-            <AntdInput value={recipeValue} onChange={handleRecipeValueChange} />
+          <Form.Item label="Recipe" htmlFor="recipe">
+            <AntdInput
+              aria-label="Recipe"
+              id="recipe"
+              value={recipeValue}
+              onChange={handleRecipeValueChange}
+            />
           </Form.Item>
-          <Form.Item label="Ingredients">
+          <Form.Item label="Ingredients" htmlFor="ingredients">
             <TextArea
+              aria-label="Ingredients"
+              id="ingredients"
               value={ingredientsValue}
               onChange={handleIngredientsValueChange}
             />
           </Form.Item>
-          <Form.Item label="Instruction">
+          <Form.Item label="Instruction" htmlFor="instruction">
             <TextArea
+              aria-label="Instruction"
+              id="instruction"
               value={instructionValue}
               onChange={handleInstructionValueChange}
             />
