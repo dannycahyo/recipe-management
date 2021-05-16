@@ -138,7 +138,12 @@ export default function MyRecipe() {
           alignItems="center"
           templateColumns="repeat(4, 1fr)"
         >
-          <GridItem colStart={2} colEnd={4} mt="10">
+          <GridItem
+            colStart={[1, 2, 2]}
+            colEnd={[5, 4, 4]}
+            mt="10"
+            paddingX="4"
+          >
             <InputGroup>
               <Input
                 value={searchRecipeValue}

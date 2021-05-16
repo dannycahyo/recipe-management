@@ -73,7 +73,7 @@ export const AddRecipe = () => {
 
   return (
     <Box>
-      <Button onClick={handleShowModal} colorScheme="pink" mr="4">
+      <Button onClick={handleShowModal} colorScheme="pink" mr="2">
         Add Recipe
       </Button>
       <Modal isOpen={isModalVisible} onClose={handleCloseModal} size="2xl">

@@ -7,7 +7,6 @@ export const Logo = () => {
   return (
     <Link to="/">
       <Heading
-        ml="2"
         fontSize="25px"
         display="flex"
         alignItems="center"
