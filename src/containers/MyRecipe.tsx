@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import UserHeader from "../components/UserHeader";
+import React, { useState, lazy } from "react";
 import { Footer } from "../components/Footer/Footer";
 import { HiPencilAlt } from "react-icons/hi";
 import { Card } from "../containers/DetailRecipe/Card";
@@ -36,6 +35,8 @@ import { SearchIcon } from "@chakra-ui/icons";
 import useRecipeQuery from "../useRecipeQuery";
 import { Recipe } from "../useRecipeQuery";
 import SvgImg from "../assets/undraw_empty_xct9.svg";
+
+const UserHeader = lazy(() => import("../components/UserHeader"));
 
 export default function MyRecipe() {
   const { isOpen, onOpen, onClose } = useDisclosure();

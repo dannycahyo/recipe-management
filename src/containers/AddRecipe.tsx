@@ -85,7 +85,7 @@ export const AddRecipe = () => {
             <FormControl>
               <FormLabel>Recipe Name</FormLabel>
               <Input value={recipeValue} onChange={handleRecipeValueChange} />
-              <FormHelperText>Loremm Ipsum Dolor Jamet</FormHelperText>
+              <FormHelperText>Input the name of your new recipe</FormHelperText>
               <FormLabel mt="2">Category</FormLabel>
               <Input
                 value={categoryValue}
@@ -93,23 +93,30 @@ export const AddRecipe = () => {
                   setCategoryValue(event.target.value)
                 }
               />
-              <FormHelperText>Loremm Ipsum Dolor Jamet</FormHelperText>
+              <FormHelperText>Input the category of your recipe</FormHelperText>
               <FormLabel mt="2">Image</FormLabel>
               <Input value={imageValue} onChange={handleImageValueChange} />
-              <FormHelperText>Loremm Ipsum Dolor Jamet</FormHelperText>
+              <FormHelperText>
+                Input the URL link of your recipe's image
+              </FormHelperText>
               <FormLabel mt="2">Ingredients</FormLabel>
               <Textarea
                 value={ingredientsValue}
                 onChange={handleIngredientsValueChange}
                 size="lg"
               />
-              <FormHelperText>Loremm Ipsum Dolor Jamet</FormHelperText>
+              <FormHelperText>
+                Input the ingredients of your recipe
+              </FormHelperText>
               <FormLabel mt="2">Instruction</FormLabel>
               <Textarea
                 value={instructionValue}
                 onChange={handleInstructionValueChange}
                 size="lg"
               />
+              <FormHelperText>
+                Input the instruction of your recipe
+              </FormHelperText>
             </FormControl>
           </ModalBody>
           <ModalFooter>

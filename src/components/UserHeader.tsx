@@ -1,6 +1,6 @@
 import React from "react";
 import { AddRecipe } from "../containers/AddRecipe";
-import { Flex, Heading, Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Heading, Grid, GridItem, Link } from "@chakra-ui/react";
 import { Logo } from "../components/Footer/Logo";
 
 export default function UserHeader() {
@@ -19,7 +19,7 @@ export default function UserHeader() {
               textDecoration: "underline",
             }}
           >
-            My Recipe
+            <Link href="/myrecipes">My Recipe</Link>
           </Heading>
           <AddRecipe />
         </Flex>
