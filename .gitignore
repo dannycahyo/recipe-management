@@ -1,9 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+*.vscode
+/public
+public/
+
 # dependencies
 /node_modules
-/public
-/.vscode
+*.vscode
+public/
 /.pnp
 .pnp.js
 
