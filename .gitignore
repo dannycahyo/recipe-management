@@ -20,7 +20,3 @@ public/
 .env.development.local
 .env.test.local
 .env.production.local
-
-# random
-public
-.vscode
